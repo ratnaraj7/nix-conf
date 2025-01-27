@@ -1,6 +1,7 @@
 {
   midnightcafe = {
     #wallpaper = "";
+    #wallpaperSha256 = "";
     nixvimColorscheme = {
       catppuccin = {
         enable = true;

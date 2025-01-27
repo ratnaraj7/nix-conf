@@ -10,8 +10,8 @@ let
   #i3Options = lib.head(lib.filter (wm: wm.name == "i3") user.wms);
 
   wallpaperFile = pkgs.fetchurl {
-    url = user.rice.wallpaper or "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExOWJta2k1aml4NXc1emJ3djl5MWJucnB3MzBlbnduOGpydnBqa2UyOSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/KWcGnX2iz0G1fMMHrO/giphy.gif";
-    sha256 = "035aq7fhsnxiggp2kdz5y3n9420x63qgi9y8rl4arh1x3d4zqd84";
+    url = user.rice.wallpaper or "https://images.pexels.com/photos/1876876/pexels-photo-1876876.jpeg";
+    sha256 = user.rice.wallpaperSha256 or "1ljgq3n01kfcffic2wal476r07ga6b3s9hljggwnndgbsx7spd7b";
   };
 in
 {
