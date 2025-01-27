@@ -1,0 +1,126 @@
+(defpoll current_workspace :interval "0ms"
+    `hyprctl activeworkspace -j | jq '.id'`)
+
+(defpoll day :interval "1s"
+  `TZ=Asia/Kolkata date +%d`)
+
+(defpoll month :interval "1s"
+  `TZ=Asia/Kolkata date +%m`)
+
+(defpoll hour :interval "1s"
+  `TZ=Asia/Kolkata date +%H`)
+
+(defpoll minute :interval "1s"
+  `TZ=Asia/Kolkata date +%M`)
+
+(defpoll second :interval "1s"
+  `TZ=Asia/Kolkata date +%S`)
+
+(defwindow one
+           :monitor 0
+           :geometry (geometry :x "0%"
+                               :y "0%"
+                               :width "10px"
+                               :height "100%"
+                               :anchor "right center")
+           :exclusive true
+  (box :class "bar"
+       :orientation "vertical"
+        (workspaces)
+        (box :orientation "vertical"
+             :valign "end"
+             :space-evenly false
+          (other 
+                 :icon ""
+                 :high 75
+                 :medium 50
+                 :value "${round(EWW_RAM.used_mem_perc, 0)}")
+          (other
+                :icon ""
+                :high 75
+                :medium 50
+                :value "${round(EWW_CPU.avg, 0)}")
+          (other :icon ""
+                 :high 75
+                 :medium 50
+                 :value  "${EWW_TEMPS.CORETEMP_PACKAGE_ID_0}")
+          (time))))
+
+(defwindow two
+           :monitor 1
+           :geometry (geometry :x "0%"
+                               :y "0%"
+                               :width "10px"
+                               :height "100%"
+                               :anchor "right center")
+           :exclusive true
+  (box :class "bar"
+       :orientation "vertical"
+        (workspaces)
+        (box :orientation "vertical"
+             :valign "end"
+             :space-evenly false
+          (other 
+                 :icon ""
+                 :high 75
+                 :medium 50
+                 :value "${round(EWW_RAM.used_mem_perc, 0)}")
+          (other
+                :icon ""
+                :high 75
+                :medium 50
+                :value "${round(EWW_CPU.avg, 0)}")
+          (other :icon ""
+                 :high 75
+                 :medium 50
+                 :value  "${EWW_TEMPS.CORETEMP_PACKAGE_ID_0}")
+          (time))))
+        
+(defwidget workspaces []
+  (box :orientation "vertical"
+       :class "workspace"
+       :space-evenly false
+       :valign "start"
+    (workspace_button :workspace_number "1")
+    (workspace_button :workspace_number "2")
+    (workspace_button :workspace_number "3")
+    (workspace_button :workspace_number "4")
+    (workspace_button :workspace_number "5")
+    (workspace_button :workspace_number "6")
+    (workspace_button :workspace_number "7")
+    (workspace_button :workspace_number "8")
+    (workspace_button :workspace_number "9")
+    (workspace_button :workspace_number "10")))
+
+
+
+(defwidget workspace_button [workspace_number]
+  (button :class {current_workspace == workspace_number ? "workspace_button active_workspace" : "workspace_button"}
+          :onclick "hyprctl dispatch workspace ${workspace_number}"
+    {current_workspace == workspace_number ? "" : ""}))
+                              
+
+(defwidget time []
+  (box :orientation "vertical"
+       :class "time"
+    (label :text "${day}/${month}"
+           :class "date"
+           :halign "end")
+    (label :text "${hour}:${minute}"
+           :class "hour_minute")
+    (label :text "${second}"
+           :halign "end"
+           :class "second")))
+
+(defwidget other [icon high medium value]
+  (box :orientation "horizontal"
+       :class "other ${value >= high ? "high" :
+                  value >= medium ? "medium" :
+                  "low"}"
+
+      (label :text icon
+             :class "icon")
+      (label :text value
+            :class "other_text")))
+   
+
