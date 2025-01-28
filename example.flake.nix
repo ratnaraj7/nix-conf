@@ -22,7 +22,6 @@
   outputs =
     inputs@{ nixpkgs, home-manager, nixvim, ghostty, swww,... }:
     let
-      rices = import ./rices;
       system = "x86_64-linux";
       user = {
         username = "john";
@@ -32,7 +31,7 @@
         loginShell = "zsh"; # "zsh" | "fish" | "nushell".
         # Note: nushell not working properly as login shell while setting XDG envs.
         # Use POSIX compliant shell as login shell for better support.
-        rice = rices.midnightcafe;
+        rice = import ./rices/midnightcafe.nix;
         wms = [
           {
             name = "Hyprland";
