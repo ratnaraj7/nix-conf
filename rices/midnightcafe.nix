@@ -1,27 +1,27 @@
 let
-  colors = {
-    color00 = "#45475a"; # Dark gray
-    color01 = "#f38ba8"; # Red
-    color02 = "#a6e3a1"; # Green
-    color03 = "#f9e2af"; # Yellow
-    color04 = "#89b4fa"; # Blue
-    color05 = "#f5c2e7"; # Pink
-    color06 = "#94e2d5"; # Cyan
-    color07 = "#bac2de"; # Light gray
-    color08 = "#585b70"; # Darker gray
-    color09 = "#f38ba8"; # Red (duplicate)
-    color10 = "#a6e3a1"; # Green (duplicate)
-    color11 = "#f9e2af"; # Yellow (duplicate)
-    color12 = "#89b4fa"; # Blue (duplicate)
-    color13 = "#f5c2e7"; # Pink (duplicate)
-    color14 = "#94e2d5"; # Cyan (duplicate)
-    color15 = "#a6adc8"; # Light blue-gray
-    color16 = "#1e1e2e";
-    color17 = "#cdd6f4";
-    color18 = "#f5e0dc";
-    color19 = "#353749";
-    color20 = "#cdd6f4";
-  };
+  color00 = "#45475a"; # Dark gray
+  color01 = "#f38ba8"; # Red
+  color02 = "#a6e3a1"; # Green
+  color03 = "#f9e2af"; # Yellow
+  color04 = "#89b4fa"; # Blue
+  color05 = "#f5c2e7"; # Pink
+  color06 = "#94e2d5"; # Cyan
+  color07 = "#bac2de"; # Light gray
+  color08 = "#585b70"; # Darker gray
+  color09 = "#f38ba8"; # Red (duplicate)
+  color10 = "#a6e3a1"; # Green (duplicate)
+  color11 = "#f9e2af"; # Yellow (duplicate)
+  color12 = "#89b4fa"; # Blue (duplicate)
+  color13 = "#f5c2e7"; # Pink (duplicate)
+  color14 = "#94e2d5"; # Cyan (duplicate)
+  color15 = "#a6adc8"; # Light blue-gray
+  color16 = "#1e1e2e"; # Dark gray
+  color17 = "#cdd6f4"; # Light blue
+  color18 = "#f5e0dc"; # Peach
+  color19 = "#353749"; # Slate
+  color20 = "#cdd6f4"; # Light blue
+
+  removeHash = color: builtins.replaceStrings [ "#" ] [ "" ] color;
 in
 {
 
@@ -29,33 +29,37 @@ in
   #wallpaperSha256 = "";
 
   ghostty = ''
-    palette = 0=${colors.color00}
-    palette = 1=${colors.color01}
-    palette = 2=${colors.color02}
-    palette = 3=${colors.color03}
-    palette = 4=${colors.color04}
-    palette = 5=${colors.color05}
-    palette = 6=${colors.color06}
-    palette = 7=${colors.color07}
-    palette = 8=${colors.color08}
-    palette = 9=${colors.color09}
-    palette = 10=${colors.color10}
-    palette = 11=${colors.color11}
-    palette = 12=${colors.color12}
-    palette = 13=${colors.color13}
-    palette = 14=${colors.color14}
-    palette = 15=${colors.color15}
-    background = ${colors.color16}
-    foreground = ${colors.color17}
-    cursor-color = ${colors.color18}
-    selection-background = ${colors.color19}
-    selection-foreground = ${colors.color20}
+    window-padding-x = 32
+    window-padding-y = 32
+    palette = 0=${color00}
+    palette = 1=${color01}
+    palette = 2=${color02}
+    palette = 3=${color03}
+    palette = 4=${color04}
+    palette = 5=${color05}
+    palette = 6=${color06}
+    palette = 7=${color07}
+    palette = 8=${color08}
+    palette = 9=${color09}
+    palette = 10=${color10}
+    palette = 11=${color11}
+    palette = 12=${color12}
+    palette = 13=${color13}
+    palette = 14=${color14}
+    palette = 15=${color15}
+    background = ${color16}
+    foreground = ${color17}
+    cursor-color = ${color18}
+    selection-background = ${color19}
+    selection-foreground = ${color20}
+    background-opacity = 0.8
   '';
   nixvimColorscheme = {
     catppuccin = {
       enable = true;
       settings = {
-        flavour = "frappe";
+        flavour = "mocha";
+        transparent_background = true;
       };
     };
   };
@@ -69,27 +73,28 @@ in
     result-spacing = 25;
     num-results = 5;
     font = "monospace";
-    background-color = "#000a";
-    #selection
-    selection-color = "#d95757";
-    selection-background = "#0d1017";
     selection-background-padding = 8;
     selection-background-corner-radius = 4;
-    selection-match-color = "#ffb454";
+    #colors
+    background-color = "#000a";
+    selection-color = color17;
+    selection-background = color19;
+    selection-match-color = color01;
   };
   ewwConfigDir = ./eww-midnightcafe;
   hyprland = {
     general = {
       gaps_in = 12;
       gaps_out = 12;
-      border_size = 4;
-      "col.active_border" = "rgba(e6b673ff) rgba(e6b673ff) 0deg";
-      "col.inactive_border" = "rgba(595959aa)";
+      border_size = 1;
+      "col.active_border" =
+        "rgba(${removeHash color01}ff) rgba(${removeHash color01}ff) 0deg";
+      "col.inactive_border" = "rgba(${removeHash color08}ff)";
       layout = "dwindle";
       allow_tearing = false;
     };
     decoration = {
-      rounding = 0;
+      rounding = 4;
       blur = {
         enabled = true;
         size = 4;
