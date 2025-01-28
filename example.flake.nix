@@ -31,7 +31,7 @@
         loginShell = "zsh"; # "zsh" | "fish" | "nushell".
         # Note: nushell not working properly as login shell while setting XDG envs.
         # Use POSIX compliant shell as login shell for better support.
-        rice = import ./rices/midnightcafe.nix;
+        rice = import ./rices/midnightcafe.nix { lib = nixpkgs.lib; };
         wms = [
           {
             name = "Hyprland";

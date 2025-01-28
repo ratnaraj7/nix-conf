@@ -1,3 +1,4 @@
+{ lib, ... }:
 let
   color00 = "#45475a"; # Dark gray
   color01 = "#f38ba8"; # Red
@@ -87,8 +88,7 @@ in
       gaps_in = 12;
       gaps_out = 12;
       border_size = 1;
-      "col.active_border" =
-        "rgba(${removeHash color01}ff) rgba(${removeHash color01}ff) 0deg";
+      "col.active_border" = "rgba(${removeHash color01}ff) rgba(${removeHash color01}ff) 0deg";
       "col.inactive_border" = "rgba(${removeHash color08}ff)";
       layout = "dwindle";
       allow_tearing = false;
@@ -118,6 +118,78 @@ in
         "fade, 1, 7, default"
         "workspaces, 1, 6, default"
       ];
+    };
+  };
+  starshipSettings = {
+    format = lib.concatStrings [
+      "$line_break"
+      "$line_break"
+      "$directory"
+      "$git_branch"
+      "$git_status"
+      "$fill"
+      "$deno"
+      "$golang"
+      "$lua"
+      "$nodejs"
+      "$python"
+      "$rust"
+      "$nix_shell"
+      "$cmd_duration"
+      "$line_break"
+      "$character"
+    ];
+    add_newline = true;
+    character = {
+      success_symbol = "[ 󱞩](bold green)";
+      error_symbol = "[ 󱞩](bold red)";
+    };
+    directory = {
+      style = "none fg:" + color04;
+      format = "[$path ]($style)";
+      truncation_length = 3;
+      truncation_symbol = ".../";
+      truncate_to_repo = false;
+    };
+    fill = {
+      symbol = " ";
+    };
+    git_branch = {
+      symbol = " ";
+      format = "[on](white) [$symbol$branch ]($style)";
+    };
+    cmd_duration = {
+      min_time = 0;
+    };
+    python = {
+      style = "teal";
+      symbol = " ";
+      format = "[$symbol$pyenv_prefix($version )(\($virtualenv\) )]($style)";
+      pyenv_version_name = true;
+      pyenv_prefix = "";
+    };
+    lua = {
+      symbol = " ";
+    };
+    nodejs = {
+      style = "blue";
+      symbol = " ";
+    };
+    golang = {
+      style = "blue";
+      symbol = " ";
+    };
+    haskell = {
+      style = "blue";
+      symbol = " ";
+    };
+    rust = {
+      style = "orange";
+      symbol = " ";
+    };
+    ruby = {
+      style = "blue";
+      symbol = " ";
     };
   };
 }

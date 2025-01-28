@@ -44,7 +44,8 @@
     noto-fonts
     noto-fonts-cjk-sans
     noto-fonts-emoji
-    nerd-fonts.droid-sans-mono
+    nerd-fonts.fira-code
+    nerd-fonts.symbols-only
   ];
   fonts.fontconfig.enable = true;
   programs.git = {
