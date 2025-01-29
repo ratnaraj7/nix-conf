@@ -22,14 +22,20 @@ let
   color19 = "#353749"; # Slate
   color20 = "#cdd6f4"; # Light blue
 
+  fonts = [
+    "cascadia-code"
+  ];
+
   removeHash = color: builtins.replaceStrings [ "#" ] [ "" ] color;
 in
 {
 
   #wallpaper = "";
   #wallpaperSha256 = "";
+  inherit fonts;
 
   ghostty = ''
+    font-family = Cascadia Code
     window-padding-x = 32
     window-padding-y = 32
     palette = 0=${color00}
@@ -122,8 +128,6 @@ in
   };
   starshipSettings = {
     format = lib.concatStrings [
-      "$line_break"
-      "$line_break"
       "$directory"
       "$git_branch"
       "$git_status"

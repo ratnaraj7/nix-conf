@@ -46,7 +46,7 @@
     noto-fonts-emoji
     nerd-fonts.fira-code
     nerd-fonts.symbols-only
-  ];
+  ] ++ (map (fontName: pkgs."${fontName}") user.rice.fonts);
   fonts.fontconfig.enable = true;
   programs.git = {
     enable = true;
