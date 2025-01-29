@@ -53,6 +53,7 @@
     userName = user.gitUsername;
     userEmail = user.gitEmail;
   };
+  programs.gh.enable = true;
   # bash required for xdg.enable
   programs.bash.enable = true;
   xdg.enable = true;
