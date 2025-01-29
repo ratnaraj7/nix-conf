@@ -26,6 +26,7 @@
     p7zip
 
     # utils
+    gifski
     plocate
     ripgrep
     jq
