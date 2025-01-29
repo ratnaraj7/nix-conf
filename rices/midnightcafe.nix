@@ -202,7 +202,7 @@ in
     }
 
     .bar {
-      background-color: #0d1017;
+      background-color: ${color16};
       font-family: "Cascadia Code";
     }
 
@@ -212,16 +212,16 @@ in
 
     .workspace_button {
       padding: 8px 8px;
-      color: #565b66;
+      color: ${color07};
     }
 
     .active_workspace {
-      color: #ff8f40;
+      color: ${color03};
       font-size: 1.5rem;
     }
 
     .time {
-      background-color: #e6b673;
+      background-color: ${color03};
       color: #11111b;
       padding: 8px 4px;
     }
@@ -247,15 +247,15 @@ in
     }
 
     .high {
-      color: #f07178;
+      color: ${color01};
     }
 
     .medium {
-      color: #ffb454;
+      color: ${color02};
     }
 
     .low {
-      color: #aad94c;
+      color: ${color03};
     }
   '';
   ewwYuck = ''
