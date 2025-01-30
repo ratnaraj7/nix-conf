@@ -29,9 +29,9 @@ let
   removeHash = color: builtins.replaceStrings [ "#" ] [ "" ] color;
 in
 {
-
-  #wallpaper = "";
-  #wallpaperSha256 = "";
+  wallpaperName = "shrek-x-miku";
+  wallpaper = "https://dl.dropboxusercontent.com/scl/fi/gnhqjfhi18622o3oeutkk/shrek-x-miku.mp4?rlkey=1j4uuuicxw4qfrih5axxuwor6&e=1&st=r8jyy6wx&dl=0";
+  wallpaperSha256 = "058i88avsccx6d2pkzy5qd9a0m5l8sggwixx2bmfyw44d2rmvl1q";
   inherit fonts;
 
   ghostty = ''
@@ -59,7 +59,7 @@ in
     cursor-color = ${color18}
     selection-background = ${color19}
     selection-foreground = ${color20}
-    background-opacity = 0.8
+    background-opacity = 0.98
   '';
   nixvimColorscheme = {
     catppuccin = {
@@ -251,11 +251,11 @@ in
     }
 
     .medium {
-      color: ${color02};
+      color: ${color03};
     }
 
     .low {
-      color: ${color03};
+      color: ${color02};
     }
   '';
   ewwYuck = ''
