@@ -11,6 +11,7 @@
     ./display-managers
     ./desktop
     ./apps
+    ./wallpaper.nix {}
   ];
   home.username = user.username;
   home.homeDirectory = "/home/" + user.username;
@@ -26,7 +27,6 @@
     p7zip
 
     # utils
-    gifski
     plocate
     ripgrep
     jq

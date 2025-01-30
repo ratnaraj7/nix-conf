@@ -119,9 +119,7 @@
         "ALT,mouse:272,movewindow"
       ];
       exec-once = [
-        # swww wallpaper
-        "swww-daemon"
-        ("swww img $XDG_CONFIG_HOME/wallpaper")
+        "genWallpaper"
 
         # eww
         "eww daemon"
