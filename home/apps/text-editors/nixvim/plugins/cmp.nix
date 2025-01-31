@@ -34,6 +34,14 @@
           formatting.format = ''
             require("tailwindcss-colorizer-cmp").formatter
           '';
+          window = {
+            completion = {
+              border = "rounded";
+            };
+            documentation = {
+              border = "rounded";
+            };
+          };
         };
       };
       cmp-nvim-lsp.enable = true;
