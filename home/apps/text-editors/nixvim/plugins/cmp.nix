@@ -111,6 +111,22 @@
               border = "rounded";
             };
           };
+          enabled = {
+            __raw = ''
+              function()
+                    local files = {
+                      "oil",
+                    }
+                    local buffer = vim.bo.filetype
+                    for _, f in ipairs(files) do
+                      if buffer == f then
+                        return false
+                      end
+                    end
+                    return true
+              end
+            '';
+          };
         };
       };
     };
