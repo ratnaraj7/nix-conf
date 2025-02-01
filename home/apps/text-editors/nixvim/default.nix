@@ -2,6 +2,9 @@
 {
   imports = [
     ./plugins
+    ./keymaps.nix
+    ./options.nix
+    ./globals.nix
     nixvim.homeManagerModules.nixvim
   ];
   programs.nixvim = {
