@@ -1,65 +1,12 @@
 { pkgs, ... }:
 {
   programs.nixvim = {
-    plugins = {
-      cmp = {
-        enable = true;
-        autoEnableSources = false;
-        settings = {
-          sources = [
-            { name = "nvim_lsp"; }
-            { name = "luasnip"; }
-            { name = "path"; }
-            { name = "buffer"; }
-          ];
-          snippet.expand = ''
-            function(args)
-              luasnip.lsp_expand(args.body)
-            end
-          '';
-          completion.completeopt = "menu,menuone,noinsert";
-          mapping = {
-            "<C-n>" = "cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert })";
-            "<C-p>" = "cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert })";
-            "<CR>" = "cmp.mapping.confirm({ select = true })";
-            "<C-Space>" = "cmp.mapping.complete()";
-            "<C-j>" = "cmp.mapping.scroll_docs(4)";
-            "<C-k>" = "cmp.mapping.scroll_docs(-4)";
-          };
-          experimental = {
-            ghost_text = {
-              hl_group = "LspCodeLens";
-            };
-          };
-          formatting.format = ''
-            require("tailwindcss-colorizer-cmp").formatter
-          '';
-          window = {
-            completion = {
-              border = "rounded";
-            };
-            documentation = {
-              border = "rounded";
-            };
-          };
-        };
-      };
-      cmp-nvim-lsp.enable = true;
-      cmp-path.enable = true;
-      cmp-buffer.enable = true;
-      luasnip = {
-        enable = true;
-        filetypeExtend = {
-          javascript = [ "html" ];
-          javascriptreact = [ "html" ];
-          typescriptreact = [ "html" ];
-          htmldjango = [ "html" ];
-          templ = [ "html" ];
-        };
-        fromVscode = [ { } ];
-      };
-    };
-    extraPlugins = [
+    extraPlugins = with pkgs.vimPlugins; [
+      codeium-nvim
+      plenary-nvim
+      # prevent using nixvim to manage lspkind,
+      # conflicts with cmp formatting
+      lspkind-nvim
       (pkgs.vimUtils.buildVimPlugin {
         name = "tailwindcss-colorizer-cmp";
         src = pkgs.fetchFromGitHub {
@@ -74,6 +21,98 @@
       require("tailwindcss-colorizer-cmp").setup({
       	color_square_width = 2,
       })
+      require("codeium").setup({})
     '';
+    plugins = {
+      friendly-snippets.enable = true;
+      cmp-nvim-lsp.enable = true;
+      cmp-path.enable = true;
+      cmp-buffer.enable = true;
+      cmp_luasnip.enable = true;
+      luasnip = {
+        enable = true;
+        filetypeExtend = {
+          javascript = [ "html" ];
+          javascriptreact = [ "html" ];
+          typescriptreact = [ "html" ];
+          htmldjango = [ "html" ];
+          templ = [ "html" ];
+        };
+        fromVscode = [ { } ];
+      };
+      cmp = {
+        enable = true;
+        autoEnableSources = false;
+        settings = {
+          sources = [
+            { name = "codeium"; }
+            { name = "nvim_lsp"; }
+            { name = "luasnip"; }
+            { name = "path"; }
+            { name = "buffer"; }
+          ];
+          snippet.expand = ''
+            function(args)
+              luasnip.lsp_expand(args.body)
+            end
+          '';
+          completion.completeopt = "menu,menuone,noinsert";
+          mapping = {
+            "<C-n>" = "cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert })";
+            "<C-p>" = "cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert })";
+            "<C-Space>" = "cmp.mapping.complete()";
+            "<C-j>" = "cmp.mapping.scroll_docs(4)";
+            "<C-k>" = "cmp.mapping.scroll_docs(-4)";
+            "<C-e>" = "cmp.mapping.close()";
+            "<CR>" = "cmp.mapping.confirm({ select = true })";
+
+            # luasnip
+            "<C-l>" = ''
+              cmp.mapping(function()
+                if require("luasnip").expand_or_locally_jumpable() then
+                  require("luasnip").expand_or_jump()
+                end
+              end, { 'i', 's' })
+            '';
+            "<C-h>" = ''
+              cmp.mapping(function()
+                if require("luasnip").locally_jumpable(-1) then
+                  require("luasnip").jump(-1)
+                end
+              end, { 'i', 's' })
+            '';
+          };
+          experimental = {
+            ghost_text = {
+              hl_group = "LspCodeLens";
+            };
+          };
+          formatting.format = ''
+            function(entry, vim_item)
+              vim_item = require("tailwindcss-colorizer-cmp").formatter(entry,vim_item)
+              local lspkind_f = require("lspkind").cmp_format({
+                menu = {
+                  codeium = "[Codeium]",
+                  nvim_lsp = "[LSP]",
+                  nvim_lua = "[api]",
+                  path = "[path]",
+                  luasnip = "[snip]",
+                  buffer = "[buffer]"
+                }
+              })
+              return lspkind_f(entry,vim_item)
+            end
+          '';
+          window = {
+            completion = {
+              border = "rounded";
+            };
+            documentation = {
+              border = "rounded";
+            };
+          };
+        };
+      };
+    };
   };
 }
