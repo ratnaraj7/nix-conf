@@ -32,7 +32,6 @@
     jq
     eza
     fzf
-    nixfmt-rfc-style
 
     # misc
     file
