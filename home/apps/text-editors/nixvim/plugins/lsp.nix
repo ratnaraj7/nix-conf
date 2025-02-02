@@ -29,7 +29,7 @@ in
           end
         '';
         enable = true;
-        capabilities = "require('cmp_nvim_lsp').default_capabilities()";
+        capabilities = ''require('cmp_nvim_lsp').default_capabilities()'';
         servers = {
           nixd.enable = true;
           ts_ls.enable = true;
@@ -37,7 +37,9 @@ in
           astro.enable = true;
           denols = {
             enable = true;
-            rootDir = "require(\"lspconfig\").util.root_pattern(\"deno.json\", \"deno.jsonc\")";
+            rootDir = {
+              __raw = ''require("lspconfig").util.root_pattern("deno.json", "deno.jsonc")'';
+            };
           };
           eslint.enable = true;
           html = {
@@ -90,7 +92,9 @@ in
               "gowork"
               "gotmpl"
             ];
-            rootDir = "require(\"lspconfig\").util.root_pattern(\"go.work\", \"go.mod\", \".git\")";
+            rootDir = {
+              __raw = ''require("lspconfig").util.root_pattern("go.work", "go.mod", ".git")'';
+            };
             settings = {
               gopls = {
                 gofumpt = true;

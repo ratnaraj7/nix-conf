@@ -1,4 +1,5 @@
-{user,...}:{
+{ user, ... }:
+{
   programs.nixvim = {
     plugins.mini = {
       enable = true;
@@ -49,7 +50,13 @@
     autoCmd = [
       {
         # in rust ignore pairs for lifetime anotations
-        command = "lua vim.keymap.set('i', \"'\", \"'\", { buffer = 0 }) ";
+        callback = {
+          __raw = ''
+            function()
+            	vim.keymap.set('i', "'", "'", { buffer = 0 })
+            end
+          '';
+        };
         event = [
           "FileType"
         ];
